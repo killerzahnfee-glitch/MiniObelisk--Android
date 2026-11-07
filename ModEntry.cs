@@ -73,7 +73,8 @@ namespace MultipleMiniObelisks
             // Only intercept ordinary left clicks while playing, not clicks in menus.
             // Keep the original checkForAction Harmony patch for controller/action input.
             if (!Context.IsWorldReady || Game1.activeClickableMenu != null ||
-                e.Button != SButton.MouseLeft || Game1.eventUp || Game1.player == null)
+                e.Button != SButton.MouseLeft || Game1.eventUp || Game1.player == null ||
+                Game1.player.CurrentTool != null)
                 return;
 
             var tile = e.Cursor.GrabTile;
@@ -86,6 +87,11 @@ namespace MultipleMiniObelisks
             if (System.Math.Abs(Game1.player.TilePoint.X - (int)tile.X) > 2 ||
                 System.Math.Abs(Game1.player.TilePoint.Y - (int)tile.Y) > 2)
                 return;
+
+            // Rebuild destinations from real world objects to discard orphaned entries.
+            // Only the host updates the shared cache.
+            if (Context.IsMainPlayer)
+                UpdateObeliskCache();
 
             // Reuse the existing menu and data; no save-data migration.
             if (!Game1.MasterPlayer.modData.TryGetValue(ObeliskLocationsKey, out string data))
