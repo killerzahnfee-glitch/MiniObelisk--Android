@@ -94,7 +94,7 @@ namespace MultipleMiniObelisks
             {
                 var destinations = JsonConvert.DeserializeObject<List<MiniObelisk>>(data);
                 if (destinations == null) return;
-                Game1.activeClickableMenu = new MultipleMiniObelisks.UI.TeleportMenu(obj, destinations);
+                Game1.activeClickableMenu = new global::MultipleMiniObelisks.UI.TeleportMenu(obj, destinations);
                 helper.Input.Suppress(e.Button);
             }
             catch (Exception ex)
