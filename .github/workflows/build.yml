@@ -11,8 +11,10 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x'
+      - name: Add Stardew Valley libraries
+        uses: Pathoschild/SMAPI-ModBuildWorkflow/add-reference-assemblies@v1
       - name: Build
-        run:  dotnet build MultipleMiniObelisks.csproj -c Release
+        run: dotnet build MultipleMiniObelisks.csproj -c Release
       - name: Upload compiled files
         if: success()
         uses: actions/upload-artifact@v4
