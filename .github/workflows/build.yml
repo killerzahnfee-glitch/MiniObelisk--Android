@@ -12,12 +12,12 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Build
-        run: dotnet build MultipleMiniObelisks/MultipleMiniObelisks.csproj -c Release
+        run:  dotnet build MultipleMiniObelisks.csproj -c Release
       - name: Upload compiled files
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: MultipleMiniObelisks-Android-test
           path: |
-            MultipleMiniObelisks/bin/Release/net6.0/MultipleMiniObelisks.dll
-            MultipleMiniObelisks/bin/Release/net6.0/manifest.json
+            bin/Release/net6.0/MultipleMiniObelisks.dll
+            manifest.json
